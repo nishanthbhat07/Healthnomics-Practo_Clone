@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "users": ["1mBIiEY7AxXLQqZLZ1bfdbkx3xi1", 1],
+      "lastMessageTime": "18:20",
+      "messages": [
+        {
+          "sender": "1mBIiEY7AxXLQqZLZ1bfdbkx3xi1",
+          "time": "09:25",
+          "text": "What do you think about our plans for this product launch?"
+        },
+        {
+          "sender": "1mBIiEY7AxXLQqZLZ1bfdbkx3xi1",
+          "time": "09:29",
+          "text": "It looks to me like you have a lot planned before your deadline. I would suggest you push your deadline back so you have time to run a successful advertising campaign."
+        },
+        {
+          "sender": "1mBIiEY7AxXLQqZLZ1bfdbkx3xi1",
+          "time": "09:36",
+          "text": "How do you think we should move forward with this project? As you know, we are expected to present it to our clients next week."
+        },
+        {
+          "sender": 1,
+          "time": "10:12",
+          "text": "I would suggest you discuss this further with the advertising team."
+        },
+        {
+          "sender": 1,
+          "time": "18:20",
+          "text": "I am very busy at the moment and on top of everything, I forgot my umbrella today."
+        }
+      ]
+    }
+  ]
+}
