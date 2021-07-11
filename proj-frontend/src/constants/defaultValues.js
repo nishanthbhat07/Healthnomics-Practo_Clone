@@ -1,16 +1,10 @@
-/* 
-Menu Types:
-"menu-default", "menu-sub-hidden", "menu-hidden"
-*/
-export const defaultMenuType = "menu-default";
 
+export const defaultMenuType = "menu-default";
 export const subHiddenBreakpoint = 1440;
-export const menuHiddenBreakpoint = 768;
+export const menuHiddenBreakpoint = 2000;
 export const defaultLocale = "en";
 export const localeOptions = [
   { id: "en", name: "English - LTR", direction: "ltr" },
-  { id: "es", name: "Español", direction: "ltr" },
-  { id: "enrtl", name: "English - RTL", direction: "rtl" },
 ];
 
 export const firebaseConfig = {
@@ -24,17 +18,9 @@ export const firebaseConfig = {
   measurementId: "G-8X5CRL886C",
 };
 
-export const searchPath = "/app/pages/search";
-export const servicePath = "https://api.coloredstrategies.com";
-
 export const serverURL = "http://127.0.0.1:5000";
-
-/* 
-Color Options:
-"light.purple", "light.blue", "light.green", "light.orange", "light.red", "dark.purple", "dark.blue", "dark.green", "dark.orange", "dark.red"
-*/
 export const isMultiColorActive = false;
-export const defaultColor = "dark.red";
+export const defaultColor = "dark.green";
 export const defaultDirection = "ltr";
 export const isDarkSwitchActive = true;
 export const themeColorStorageKey = "__theme_color";

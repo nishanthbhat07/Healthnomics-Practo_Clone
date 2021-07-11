@@ -12,19 +12,18 @@ import AppLocale from "./lang";
 import ColorSwitcher from "./components/common/ColorSwitcher";
 import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
 import { isMultiColorActive, isDemo } from "./constants/defaultValues";
-import { getDirection } from "./helpers/Utils";
 
 const ViewMain = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ "./views")
+  import("./views")
 );
 const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ "./views/app")
+  import( "./views/app")
 );
 const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ "./views/user")
+  import("./views/user")
 );
 const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ "./views/error")
+  import("./views/error")
 );
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
@@ -50,14 +49,7 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 class App extends Component {
   constructor(props) {
     super(props);
-    const direction = getDirection();
-    if (direction.isRtl) {
-      document.body.classList.add("rtl");
-      document.body.classList.remove("ltr");
-    } else {
-      document.body.classList.add("ltr");
-      document.body.classList.remove("rtl");
-    }
+    document.body.classList.add("rounded")
   }
 
   render() {
@@ -108,8 +100,8 @@ class App extends Component {
 
 const mapStateToProps = ({ authUser, settings }) => {
   const { user: loginUser } = authUser;
-  const { locale } = settings;
-  return { loginUser, locale };
+  const {locale} = settings;
+  return { loginUser ,locale};
 };
 const mapActionsToProps = {};
 

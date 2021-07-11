@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ConsultCard from "../../../components/cards/ConsultCard";
 import { serverURL } from "../../../constants/defaultValues";
+import DocCard from "../../../components/cards/DocCard";
 import { Helmet } from "react-helmet";
-class RenderConsult extends Component {
+class RenderClinicsAndDocs extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,17 +10,18 @@ class RenderConsult extends Component {
     };
   }
   componentDidMount() {
-    const cat = this.props.match.params.par;
+    const cat = this.props.match.params.parameter;
+    const location = this.props.match.params.location;
 
-    // alert(cat);
-    fetch(`${serverURL}/consultations/search`, {
+    fetch(`${serverURL}/appointments/search`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        Location: location,
         SearchQuery: cat,
-        SearchType: "DN&DS",
+        SearchType: "CS&CN",
       }),
     })
       .then((res) => res.json())
@@ -35,17 +36,18 @@ class RenderConsult extends Component {
     return (
       <>
         <Helmet>
-          <title>Online Consultations</title>
+          <title>Clinics</title>
         </Helmet>
         {this.state.data.map((item) => (
-          <ConsultCard
-            parameter={this.props.match.params.par}
+          <DocCard
+            parameter={this.props.match.params.parameter}
             item={item}
             history={this.props.history}
+            location={this.props.match.params.location}
           />
         ))}
       </>
     );
   }
 }
-export default RenderConsult;
+export default RenderClinicsAndDocs;

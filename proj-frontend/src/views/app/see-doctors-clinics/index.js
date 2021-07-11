@@ -1,15 +1,15 @@
 import React, { Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-const RenderDocs = React.lazy(() => import("./renderDocs"));
-const RenderConsult = React.lazy(() => import("./renderOnlineConsult"));
-const Gogo = ({ match }) => (
+const RenderClinics = React.lazy(() => import("./renderClinics"));
+const RenderConsult = React.lazy(() => import("./renderDocs"));
+const SDC = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Route
         exact
         path={`${match.url}/:location/:parameter`}
-        render={(props) => <RenderDocs {...props} />}
+        render={(props) => <RenderClinics {...props} />}
       />
       <Route
         exact
@@ -20,4 +20,4 @@ const Gogo = ({ match }) => (
     </Switch>
   </Suspense>
 );
-export default Gogo;
+export default SDC;

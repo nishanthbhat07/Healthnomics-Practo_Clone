@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GradientCard from "../../components/cards/GradientCard";
+import MyAccountCard from "../../components/cards/MyAccountCard";
 import { serverURL } from "../../constants/defaultValues";
 import { Helmet } from "react-helmet";
 import { NotificationManager } from "../../components/common/react-notifications";
@@ -71,7 +71,7 @@ class MyAccount extends Component {
         <Helmet>
           <title>My Account</title>
         </Helmet>
-        <GradientCard
+        <MyAccountCard
           name={name}
           email={email}
           phno={phno}

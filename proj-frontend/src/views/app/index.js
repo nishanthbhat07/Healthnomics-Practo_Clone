@@ -4,21 +4,15 @@ import { connect } from "react-redux";
 
 import AppLayout from "../../layout/AppLayout";
 
-const Gogo = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ "./gogo")
-);
-const SecondMenu = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-second-menu" */ "./second-menu")
-);
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ "./blank-page")
-);
+const ChooseSpeciality = React.lazy(() => import("./ChooseSpeciality"));
+const ChooseSymptoms = React.lazy(() => import("./ChooseSymptoms"));
 
 const RenderList = React.lazy(() => import("./see-doctors-clinics"));
 const MyAccount = React.lazy(() => import("../user/myAccount"));
 const VideoConf = React.lazy(() => import("./video-conf"));
 const Pay = React.lazy(() => import("./payment-gateway/pay"));
 const UserHistory = React.lazy(() => import("./UserHistory"));
+const Home = React.lazy(() => import("./home"));
 
 class App extends Component {
   render() {
@@ -29,25 +23,21 @@ class App extends Component {
         <div className="dashboard-wrapper">
           <Suspense fallback={<div className="loading" />}>
             <Switch>
-              <Redirect
-                exact
-                from={`${match.url}/`}
-                to={`${match.url}/dashboard`}
-              />
+              <Redirect exact from={`${match.url}/`} to={`${match.url}/home`} />
               <Route
                 path={`${match.url}/dashboard`}
-                render={(props) => <Gogo {...props} />}
+                render={(props) => <ChooseSpeciality {...props} />}
+              />
+              <Route
+                path={`${match.url}/home`}
+                render={(props) => <Home {...props} />}
               />
 
               <Route
                 path={`${match.url}/second-menu`}
-                render={(props) => <SecondMenu {...props} />}
+                render={(props) => <ChooseSymptoms {...props} />}
               />
 
-              <Route
-                path={`${match.url}/blank-page`}
-                render={(props) => <BlankPage {...props} />}
-              />
               <Route
                 path={`${match.url}/show-doctors-clinics`}
                 render={(props) => <RenderList {...props} />}
@@ -76,9 +66,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = ({ menu }) => {
-  const { containerClassnames } = menu;
-  return { containerClassnames };
-};
 
-export default withRouter(connect(mapStateToProps, {})(App));
+export default withRouter(App);

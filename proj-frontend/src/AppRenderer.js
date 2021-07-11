@@ -4,7 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { configureStore } from './redux/store';
 
-const App = React.lazy(() => import(/* webpackChunkName: "App" */'./App' ));
+const App = React.lazy(() => import('./App' ));
 
 ReactDOM.render(
   <Provider store={configureStore()}>
