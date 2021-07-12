@@ -1,11 +1,10 @@
 import React, { Component, Suspense } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 
 import AppLayout from "../../layout/AppLayout";
 
-const Gogo = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ "./gogo")
+const DCL = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-DCL" */ "./DoctorConsultList")
 );
 const VideoConference = React.lazy(() => import("./video-conf"));
 
@@ -25,7 +24,7 @@ class App extends Component {
               />
               <Route
                 path={`${match.url}/dashboard`}
-                render={(props) => <Gogo {...props} />}
+                render={(props) => <DCL {...props} />}
               />
 
               <Route
@@ -40,9 +39,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = ({ menu }) => {
-  const { containerClassnames } = menu;
-  return { containerClassnames };
-};
 
-export default withRouter(connect(mapStateToProps, {})(App));
+export default withRouter(App);

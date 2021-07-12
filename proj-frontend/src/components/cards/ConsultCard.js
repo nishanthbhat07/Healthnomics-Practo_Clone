@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
 import { Row, Card, CardBody, Col, Input, CardText, Button } from "reactstrap";
-import Pay from "../../views/app/payment-gateway/pay";
 import { slots } from "../../data/slots";
 import { symptoms } from "../../data/symptoms";
 import { NotificationManager } from "../common/react-notifications";
@@ -11,18 +10,9 @@ import RatingComponent from "../../components/common/Rating";
 import { Wizard, Steps, Step } from "react-albus";
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { serverURL } from "../../constants/defaultValues";
-const imgURLs = [
-  "https://res.cloudinary.com/dl0dsqomf/image/upload/v1606200641/ani-kolleshi-7jjnJ-QA9fY-unsplash_yc8ooi.jpg",
-  "https://res.cloudinary.com/dl0dsqomf/image/upload/v1606199501/humberto-chavez-FVh_yqLR9eA-unsplash_z8j07t.jpg",
-  "https://res.cloudinary.com/dl0dsqomf/image/upload/v1606199410/austin-distel-7bMdiIqz_J4-unsplash_hm2vji.jpg",
-];
-const randomGenerator = () => {
-  var min = 1;
-  var max = 4;
-  var random = Math.random() * (+max - +min) + +min;
-  return Math.round(random);
-};
-
+import StripeCheckout from "react-stripe-checkout";
+import { Helmet } from "react-helmet";
+import Logo from "./logo-trial-3.png";
 class ConsultCard extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +30,7 @@ class ConsultCard extends Component {
     this.bookAppointment = this.bookAppointment.bind(this);
     this.checkSlot = this.checkSlot.bind(this);
     this.showWarnNoti = this.showWarnNoti.bind(this);
+    this.onToken = this.onToken.bind(this);
   }
   onChange = (e) => {
     // alert(e.currentTarget.value);
@@ -149,7 +140,10 @@ class ConsultCard extends Component {
     }
     goToNext();
   }
-
+  onToken = (token) => {
+    console.log(token);
+    this.bookAppointment();
+  };
   onClickPrev(goToPrev, steps, step) {
     if (steps.indexOf(step) <= 0) {
       return;
@@ -157,16 +151,13 @@ class ConsultCard extends Component {
     goToPrev();
   }
   render() {
-    const {
-      DoctorName,
-      DoctorID,
-      Rating,
-      MinMaxCost,
-      image_url,
-      PhoneNumber,
-    } = this.props.item;
+    const { DoctorName, DoctorID, Rating, MinMaxCost, image_url, PhoneNumber } =
+      this.props.item;
     var price = MinMaxCost.split("|");
-
+    var priceForStripeConv = 100;
+    const priceForStripe = priceForStripeConv * 100;
+    const publishableKey =
+      "pk_test_51HojBHDpfvzgJR4pXFOGRvutxEvv5tUs2z61xMMxhFkMlyqlpQ8zmwPOLiixRqmf3x0ygs71SWxkpbldhiH18t4800Am9RBDzh";
     return (
       <>
         <Card className=" d-flex flex-row mb-4" key={DoctorID}>
@@ -270,15 +261,59 @@ class ConsultCard extends Component {
                           />
                         </Col>
                       </Row>
-                      <div className="d-flex justify-content-end align-items-center">
-                        <Button
-                          onClick={() => this.checkSlot()}
-                          color="primary"
-                          className="btn-shadow"
+                      {this.state.open ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                          className="d-flex justify-content-end align-items-center"
                         >
-                          BOOK APPOINTMENT
-                        </Button>
-                      </div>
+                          <Helmet>
+                            <title>Pay</title>
+                          </Helmet>
+                          <StripeCheckout
+                            stripeKey={publishableKey}
+                            name="HEALTHNOMICS"
+                            allowRememberMe
+                            label="Pay Now"
+                            billingAddress={false}
+                            shippingAddress={false}
+                            image={Logo}
+                            currency="INR"
+                            description={`Your total is Rs.${priceForStripeConv}`}
+                            amount={priceForStripe}
+                            panelLabel="Pay Now"
+                            token={this.onToken}
+                          >
+                            <div className="d-flex justify-content-end align-items-center">
+                              <Button color="primary" className="btn-shadow">
+                                Click Here to Pay!
+                              </Button>
+                            </div>
+                          </StripeCheckout>
+                          <div className="d-flex justify-content-end align-items-center">
+                            <Button
+                              color="secondary"
+                              className="btn-shadow"
+                              onClick={() => this.setState({ open: false })}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      ) : null}
+                      {!this.state.open ? (
+                        <div className="d-flex justify-content-end align-items-center">
+                          <Button
+                            onClick={() => this.checkSlot()}
+                            color="primary"
+                            className="btn-shadow"
+                          >
+                            BOOK APPOINTMENT
+                          </Button>
+                        </div>
+                      ) : null}
                     </div>
                   </Step>
                 </Steps>
@@ -294,11 +329,6 @@ class ConsultCard extends Component {
             </CardBody>
           </div>
         </Card>
-        <Pay
-          open={this.state.open}
-          showModal={this.showModal}
-          onClick={this.bookAppointment}
-        />
       </>
     );
   }

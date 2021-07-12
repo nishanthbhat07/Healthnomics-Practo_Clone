@@ -1,6 +1,5 @@
 import React, { Component, Suspense } from "react";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
 
 import AppLayout from "../../layout/AppLayout";
 
@@ -9,8 +8,6 @@ const ChooseSymptoms = React.lazy(() => import("./ChooseSymptoms"));
 
 const RenderList = React.lazy(() => import("./see-doctors-clinics"));
 const MyAccount = React.lazy(() => import("../user/myAccount"));
-const VideoConf = React.lazy(() => import("./video-conf"));
-const Pay = React.lazy(() => import("./payment-gateway/pay"));
 const UserHistory = React.lazy(() => import("./UserHistory"));
 const Home = React.lazy(() => import("./home"));
 
@@ -45,14 +42,6 @@ class App extends Component {
               <Route
                 path={`${match.url}/user/my-account`}
                 render={(props) => <MyAccount {...props} />}
-              />
-              <Route
-                path={`${match.url}/video-conference`}
-                render={(props) => <VideoConf {...props} />}
-              />
-              <Route
-                path={`${match.url}/pay`}
-                render={(props) => <Pay {...props} />}
               />
               <Route
                 path={`${match.url}/user/history`}

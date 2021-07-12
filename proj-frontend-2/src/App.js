@@ -9,23 +9,12 @@ import {
 import { IntlProvider } from "react-intl";
 import "./helpers/Firebase";
 import AppLocale from "./lang";
-import ColorSwitcher from "./components/common/ColorSwitcher";
-import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
-import { isMultiColorActive, isDemo } from "./constants/defaultValues";
-import { getDirection } from "./helpers/Utils";
+import { isDemo } from "./constants/defaultValues";
 
-const ViewMain = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ "./views")
-);
-const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ "./views/app")
-);
-const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ "./views/user")
-);
-const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ "./views/error")
-);
+const ViewMain = React.lazy(() => import("./views"));
+const ViewApp = React.lazy(() => import("./views/app"));
+const ViewUser = React.lazy(() => import("./views/user"));
+const ViewError = React.lazy(() => import("./views/error"));
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
@@ -50,14 +39,7 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
 class App extends Component {
   constructor(props) {
     super(props);
-    const direction = getDirection();
-    if (direction.isRtl) {
-      document.body.classList.add("rtl");
-      document.body.classList.remove("ltr");
-    } else {
-      document.body.classList.add("ltr");
-      document.body.classList.remove("rtl");
-    }
+    document.body.classList.add("rounded");
   }
 
   render() {
@@ -71,8 +53,6 @@ class App extends Component {
           messages={currentAppLocale.messages}
         >
           <React.Fragment>
-            <NotificationContainer />
-            {isMultiColorActive && <ColorSwitcher />}
             <Suspense fallback={<div className="loading" />}>
               <Router>
                 <Switch>
