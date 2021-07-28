@@ -33,9 +33,12 @@ There are some limitations to the system. They are:
 # DFDs
 
 1. Level 0
-   ![DFD lvl-0](dfd0.jpg)
+
+![DFD lvl-0](dfd0.jpg)
+
 2. Level 1
-   ![DFD lvl-1](dfd1.jpg)
+
+![DFD lvl-1](dfd1.jpg)
 
 # Entity-Relationship Diagram
 
