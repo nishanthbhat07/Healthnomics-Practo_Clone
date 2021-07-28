@@ -46,7 +46,7 @@ There are some limitations to the system. They are:
 
 # Use Case diagram
 
-![use case](usecase.jpg)
+![use case](usecase.jpeg)
 
 ## Use Case Flow
 
