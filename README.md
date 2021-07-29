@@ -38,7 +38,7 @@ There are some limitations to the system. They are:
 
 2. Level 1
 
-![DFD lvl-1](dfd1.jpg)
+![DFD lvl-1](dfdlvl1.png)
 
 # Entity-Relationship Diagram
 
